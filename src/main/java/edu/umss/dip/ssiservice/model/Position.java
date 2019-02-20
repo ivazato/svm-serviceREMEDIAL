@@ -4,7 +4,10 @@
 
 package edu.umss.dip.ssiservice.model;
 
-public class Position {
+import javax.persistence.Entity;
+
+@Entity
+public class Position extends ModelBase {
     private String name;
 
     public String getName() {
