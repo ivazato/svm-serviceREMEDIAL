@@ -41,4 +41,12 @@ public class Employee extends ModelBase {
     public void setImage(Byte[] image) {
         this.image = image;
     }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
+    }
 }
