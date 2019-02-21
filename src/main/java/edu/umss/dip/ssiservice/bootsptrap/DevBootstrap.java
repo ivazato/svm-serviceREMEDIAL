@@ -96,6 +96,6 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         john.getContracts().add(contract);
         employeeRepository.save(john);
-        contractRepository.save(contract);
+        //contractRepository.save(contract);
     }
 }
