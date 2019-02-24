@@ -8,13 +8,23 @@ import edu.umss.dip.ssiservice.model.Employee;
 import edu.umss.dip.ssiservice.service.EmployeeService;
 import edu.umss.dip.ssiservice.service.GenericService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/employee")
 public class EmployeeController extends GenericController<Employee> {
     private EmployeeService service;
 
     public EmployeeController(EmployeeService service) {
         this.service = service;
+    }
+
+    @Override
+    @GetMapping
+    public String getAll(Model model) {
+        return super.getAll(model);
     }
 
     @Override
