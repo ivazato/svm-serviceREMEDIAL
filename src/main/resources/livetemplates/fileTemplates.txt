@@ -44,7 +44,7 @@ import edu.umss.dip.ssiservice.repositories.GenericRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ${NAME}ServiceImpl extends GenericServiceImpl<${NAME}> {
+public class ${NAME}ServiceImpl extends GenericServiceImpl<${NAME}> implements ${NAME}Service{
     private final ${NAME}Repository repository;
 
     public ${NAME}ServiceImpl(${NAME}Repository repository) {
