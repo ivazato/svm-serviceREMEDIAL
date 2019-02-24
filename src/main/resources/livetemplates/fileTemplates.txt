@@ -75,7 +75,7 @@ import edu.umss.dip.ssiservice.service.GenericService;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ${NAME}Controller extends GenericController<Employee> {
+public class ${NAME}Controller extends GenericController<${NAME}> {
     private ${NAME}Service service;
 
     public ${NAME}Controller(${NAME}Service service) {
