@@ -11,3 +11,48 @@ import edu.umss.dip.ssiservice.model.${NAME};
 
 public interface ${NAME}Repository extends GenericRepository<${NAME}> {
 }
+
+
+
+#### Service ####
+
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+
+import edu.umss.dip.ssiservice.model.${NAME};
+
+public interface ${NAME}Service extends GenericService<${NAME}> {
+}
+
+
+### ServiceImpl ###
+
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+
+import edu.umss.dip.ssiservice.model.${NAME};
+import edu.umss.dip.ssiservice.repositories.${NAME}Repository;
+import edu.umss.dip.ssiservice.repositories.GenericRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ${NAME}ServiceImpl extends GenericServiceImpl<${NAME}> {
+    private final ${NAME}Repository repository;
+
+    public ${NAME}ServiceImpl(${NAME}Repository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    protected GenericRepository<${NAME}> getRepository() {
+        return repository;
+    }
+}
