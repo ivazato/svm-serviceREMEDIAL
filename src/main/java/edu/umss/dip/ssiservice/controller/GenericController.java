@@ -28,12 +28,13 @@ public abstract class GenericController<E extends ModelBase> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public String getById(Long id, Model model) {
-        model.addAttribute(getSingular(), (E) (getService().findById(id)));
+    @GetMapping
+    @RequestMapping("/{id}")
+    public String getById(@PathVariable Long id, Model model) {
+        model.addAttribute(getSingular(), (getService().findById(id)));
         return getSingular();
     }
 
-    @GetMapping
     public String getAll(Model model) {
         model.addAttribute(getPlural(), getService().findAll());
         return getPlural();
