@@ -83,6 +83,12 @@ public class ${NAME}Controller extends GenericController<${NAME}> {
     }
 
     @Override
+    @GetMapping
+    public String getAll(Model model) {
+        return super.getAll(model);
+    }
+
+    @Override
     protected GenericService getService() {
         return service;
     }
