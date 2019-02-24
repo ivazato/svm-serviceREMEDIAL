@@ -1,0 +1,13 @@
+##### Repository live template #####
+
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+
+import edu.umss.dip.ssiservice.model.${NAME};
+
+public interface ${NAME}Repository extends GenericRepository<${NAME}> {
+}
