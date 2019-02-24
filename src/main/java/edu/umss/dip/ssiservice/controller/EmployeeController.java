@@ -4,22 +4,31 @@
 
 package edu.umss.dip.ssiservice.controller;
 
-import edu.umss.dip.ssiservice.repositories.EmployeeRepository;
+import edu.umss.dip.ssiservice.model.Employee;
+import edu.umss.dip.ssiservice.service.EmployeeService;
+import edu.umss.dip.ssiservice.service.GenericService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class EmployeeController {
-    private EmployeeRepository repository;
+public class EmployeeController extends GenericController<Employee> {
+    private EmployeeService service;
 
-    public EmployeeController(EmployeeRepository repository) {
-        this.repository = repository;
+    public EmployeeController(EmployeeService service) {
+        this.service = service;
     }
 
-    @RequestMapping("/employees")
-    public String getEmployees(Model model) {
-        model.addAttribute("employees", repository.findAll());
+    @Override
+    protected GenericService getService() {
+        return service;
+    }
+
+    @Override
+    protected String getSingular() {
+        return "employee";
+    }
+
+    @Override
+    protected String getPlural() {
         return "employees";
     }
 }
