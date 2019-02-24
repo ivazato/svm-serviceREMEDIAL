@@ -73,6 +73,9 @@ import edu.umss.dip.ssiservice.model.${NAME};
 import edu.umss.dip.ssiservice.service.${NAME}Service;
 import edu.umss.dip.ssiservice.service.GenericService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/${LOWER_NAME}")
