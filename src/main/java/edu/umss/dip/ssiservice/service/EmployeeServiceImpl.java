@@ -10,7 +10,7 @@ import edu.umss.dip.ssiservice.repositories.GenericRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeServiceImpl extends GenericServiceImpl<Employee> {
+public class EmployeeServiceImpl extends GenericServiceImpl<Employee> implements EmployeeService {
     private final EmployeeRepository repository;
 
     public EmployeeServiceImpl(EmployeeRepository repository) {
