@@ -56,3 +56,44 @@ public class ${NAME}ServiceImpl extends GenericServiceImpl<${NAME}> implements $
         return repository;
     }
 }
+
+
+### controller ###
+
+
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+#parse("File Header.java")
+#set($LOWER_NAME = $NAME.substring(0,1).toLowerCase() + $NAME.substring(1))
+
+import edu.umss.dip.ssiservice.model.${NAME};
+import edu.umss.dip.ssiservice.service.${NAME}Service;
+import edu.umss.dip.ssiservice.service.GenericService;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class ${NAME}Controller extends GenericController<Employee> {
+    private ${NAME}Service service;
+
+    public ${NAME}Controller(${NAME}Service service) {
+        this.service = service;
+    }
+
+    @Override
+    protected GenericService getService() {
+        return service;
+    }
+
+    @Override
+    protected String getSingular() {
+        return "${LOWER_NAME}";
+    }
+
+    @Override
+    protected String getPlural() {
+        return "${LOWER_NAME}s";
+    }
+}
