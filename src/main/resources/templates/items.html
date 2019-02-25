@@ -11,12 +11,16 @@
         <th>Name</th>
         <th>Code</th>
         <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="item:${items}">
         <td th:text="${item.id}">123</td>
         <td th:text="${item.name}">Jhon</td>
         <td th:text="${item.code}">Doe</td>
         <td><a href="#" th:href="@{'/item/'+${item.id}}">View</a></td>
+        <td><a href="#" th:href="@{'/item/update/'+${item.id}}">Edit</a></td>
+        <td><a href="#" th:href="@{'/item/delete/'+${item.id}}">Delete</a></td>
     </tr>
 </table>
 

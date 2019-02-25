@@ -51,21 +51,21 @@ public abstract class GenericController<E extends ModelBase> {
         E elementPersisted = (E) getService().save(element);
         model.addAttribute(getSingular(), elementPersisted);
         RedirectView redirectView =
-                new RedirectView(PATH_SEPARATOR + getPlural() + PATH_SEPARATOR + elementPersisted.getId());
+                new RedirectView(PATH_SEPARATOR + getSingular() + PATH_SEPARATOR + elementPersisted.getId());
         redirectView.setHttp10Compatible(false);
         return redirectView;
     }
 
     @GetMapping("/update/{id}")
-    public String updateRequest(Model model, @PathVariable String id) {
-        model.addAttribute(getSingular(), getService().findById(Long.valueOf(id)));
+    public String updateRequest(Model model, @PathVariable Long id) {
+        model.addAttribute(getSingular(), getService().findById(id));
         return getSingular() + FORM;
     }
 
     @RequestMapping(value = "/delete/{id}")
     public RedirectView deleteRequest(Model model, @PathVariable String id) {
         getService().deleteById(Long.valueOf(id));
-        RedirectView redirectView = new RedirectView(PATH_SEPARATOR + getPlural());
+        RedirectView redirectView = new RedirectView(PATH_SEPARATOR + getSingular());
         redirectView.setHttp10Compatible(false);
         return redirectView;
     }
