@@ -17,6 +17,7 @@ import javax.persistence.EntityExistsException;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -34,14 +35,14 @@ public abstract class GenericServiceImpl<T extends ModelBase> implements Generic
 
     @Override
     public T findById(Long id) {
-        final T optional = getRepository().getOne(id);
-        if (optional == null) {
+        final Optional<T> optional = getRepository().findById(id);
+        if (!optional.isPresent()) {
             String typeName = (((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0])
                     .getTypeName();
             typeName = typeName.substring(typeName.lastIndexOf('.') + 1);
             throw new NotFoundException(String.format("%s Not found with id %s", typeName, id));
         } else {
-            return optional;
+            return optional.get();
         }
     }
 
