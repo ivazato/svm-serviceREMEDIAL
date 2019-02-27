@@ -4,16 +4,19 @@
 
 package edu.umss.dip.ssiservice.controller;
 
+import edu.umss.dip.ssiservice.exception.NotFoundException;
 import edu.umss.dip.ssiservice.model.Item;
 import edu.umss.dip.ssiservice.model.SubCategory;
 import edu.umss.dip.ssiservice.service.GenericService;
 import edu.umss.dip.ssiservice.service.ItemService;
 import edu.umss.dip.ssiservice.service.SubCategoryService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -81,6 +84,15 @@ public class ItemController extends GenericController<Item> {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
         }
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("error");
+        modelAndView.addObject("exception", e);
+        return modelAndView;
     }
 
     @Override
