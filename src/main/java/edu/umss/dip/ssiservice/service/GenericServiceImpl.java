@@ -4,6 +4,7 @@
 
 package edu.umss.dip.ssiservice.service;
 
+import edu.umss.dip.ssiservice.exception.NotFoundException;
 import edu.umss.dip.ssiservice.exception.ValidationException;
 import edu.umss.dip.ssiservice.model.ModelBase;
 import edu.umss.dip.ssiservice.repositories.GenericRepository;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityExistsException;
-import javax.persistence.NoResultException;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -39,7 +39,7 @@ public abstract class GenericServiceImpl<T extends ModelBase> implements Generic
             String typeName = (((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0])
                     .getTypeName();
             typeName = typeName.substring(typeName.lastIndexOf('.') + 1);
-            throw new NoResultException(String.format("%s Not found with id %s", typeName, id));
+            throw new NotFoundException(String.format("%s Not found with id %s", typeName, id));
         } else {
             return optional;
         }
