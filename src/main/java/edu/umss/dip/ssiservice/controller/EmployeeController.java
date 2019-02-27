@@ -7,12 +7,13 @@ package edu.umss.dip.ssiservice.controller;
 import edu.umss.dip.ssiservice.model.Employee;
 import edu.umss.dip.ssiservice.service.EmployeeService;
 import edu.umss.dip.ssiservice.service.GenericService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/employees")
 public class EmployeeController extends GenericController<Employee> {
     private EmployeeService service;
@@ -23,8 +24,8 @@ public class EmployeeController extends GenericController<Employee> {
 
     @Override
     @GetMapping
-    public String getAll(Model model) {
-        return super.getAll(model);
+    public List<Employee> getAll() {
+        return super.getAll();
     }
 
     @Override
@@ -32,13 +33,4 @@ public class EmployeeController extends GenericController<Employee> {
         return service;
     }
 
-    @Override
-    protected String getSingular() {
-        return "employee";
-    }
-
-    @Override
-    protected String getPlural() {
-        return "employees";
-    }
 }

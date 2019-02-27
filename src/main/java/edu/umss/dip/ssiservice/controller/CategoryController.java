@@ -7,14 +7,15 @@ package edu.umss.dip.ssiservice.controller;
 import edu.umss.dip.ssiservice.model.Category;
 import edu.umss.dip.ssiservice.service.CategoryService;
 import edu.umss.dip.ssiservice.service.GenericService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/categories")
 public class CategoryController extends GenericController<Category> {
     private CategoryService service;
@@ -29,18 +30,7 @@ public class CategoryController extends GenericController<Category> {
     }
 
     @GetMapping
-    public String getCategories(@RequestParam(value = "code", required = false) String code, Model model) {
-        model.addAttribute(getPlural(), StringUtils.isEmpty(code) ? service.findAll() : service.findByCode(code));
-        return getPlural();
-    }
-
-    @Override
-    protected String getSingular() {
-        return "category";
-    }
-
-    @Override
-    protected String getPlural() {
-        return "categories";
+    public List<Category> getCategories(@RequestParam(value = "code", required = false) String code) {
+        return StringUtils.isEmpty(code) ? service.findAll() : service.findByCode(code);
     }
 }
