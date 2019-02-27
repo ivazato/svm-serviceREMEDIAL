@@ -5,6 +5,7 @@
 package edu.umss.dip.ssiservice.service;
 
 import edu.umss.dip.ssiservice.model.ModelBase;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface GenericService<T extends ModelBase> {
     List<T> saveAll(Iterable<T> models);
 
     void deleteById(Long id);
+
+    Byte[] getBytes(MultipartFile file);
+
 }
