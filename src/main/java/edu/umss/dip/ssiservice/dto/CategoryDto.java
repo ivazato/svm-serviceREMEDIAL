@@ -2,14 +2,11 @@
  * @author: Edson A. Terceros T.
  */
 
-package edu.umss.dip.ssiservice.model;
+package edu.umss.dip.ssiservice.dto;
 
-import edu.umss.dip.ssiservice.dto.CategoryDto;
+import edu.umss.dip.ssiservice.model.Category;
 
-import javax.persistence.Entity;
-
-@Entity
-public class Category extends ModelBase<CategoryDto> {
+public class CategoryDto extends DtoBase<Category> {
     private String name;
     private String code;
 

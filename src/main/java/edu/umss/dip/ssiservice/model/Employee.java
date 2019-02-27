@@ -4,6 +4,8 @@
 
 package edu.umss.dip.ssiservice.model;
 
+import edu.umss.dip.ssiservice.dto.EmployeeDto;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Employee extends ModelBase {
+public class Employee extends ModelBase<EmployeeDto> {
     private String firstName;
     private String lastName;
     private Byte[] image;

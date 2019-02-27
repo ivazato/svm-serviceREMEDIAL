@@ -4,6 +4,7 @@
 
 package edu.umss.dip.ssiservice.controller;
 
+import edu.umss.dip.ssiservice.dto.ItemDto;
 import edu.umss.dip.ssiservice.exception.NotFoundException;
 import edu.umss.dip.ssiservice.model.Item;
 import edu.umss.dip.ssiservice.service.GenericService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
-public class ItemController extends GenericController<Item> {
+public class ItemController extends GenericController<Item, ItemDto> {
     private ItemService service;
     private SubCategoryService subCategoryService;
 
@@ -28,7 +29,7 @@ public class ItemController extends GenericController<Item> {
 
     @Override
     @GetMapping
-    public List<Item> getAll() {
+    public List<ItemDto> getAll() {
         return super.getAll();
     }
 

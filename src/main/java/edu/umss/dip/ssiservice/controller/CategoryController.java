@@ -4,6 +4,7 @@
 
 package edu.umss.dip.ssiservice.controller;
 
+import edu.umss.dip.ssiservice.dto.CategoryDto;
 import edu.umss.dip.ssiservice.model.Category;
 import edu.umss.dip.ssiservice.service.CategoryService;
 import edu.umss.dip.ssiservice.service.GenericService;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryController extends GenericController<Category> {
+public class CategoryController extends GenericController<Category, CategoryDto> {
     private CategoryService service;
 
     public CategoryController(CategoryService service) {

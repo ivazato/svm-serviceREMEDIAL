@@ -4,6 +4,8 @@
 
 package edu.umss.dip.ssiservice.model;
 
+import edu.umss.dip.ssiservice.dto.DtoBase;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,21 +15,23 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class ModelBase {
+@SuppressWarnings("rawtypes")
+public class ModelBase<D extends DtoBase> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private Long id;
 
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    private Date createdOn;
+    private Date createdAt;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(insertable = false)
-    private Date updatedOn;
+    private Date updatedAt;
 
     @Version
     @Column(nullable = false)
@@ -42,20 +46,20 @@ public class ModelBase {
         this.id = id;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getUpdatedOn() {
-        return updatedOn;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public long getVersion() {
@@ -64,5 +68,10 @@ public class ModelBase {
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public ModelBase toDomain(D element, ModelMapper mapper) {
+        mapper.map(element, this);
+        return this;
     }
 }

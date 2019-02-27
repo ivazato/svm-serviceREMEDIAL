@@ -4,16 +4,17 @@
 
 package edu.umss.dip.ssiservice.service;
 
+import edu.umss.dip.ssiservice.dto.DtoBase;
 import edu.umss.dip.ssiservice.exception.NotFoundException;
-import edu.umss.dip.ssiservice.exception.ValidationException;
 import edu.umss.dip.ssiservice.model.ModelBase;
 import edu.umss.dip.ssiservice.repositories.GenericRepository;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityExistsException;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -25,6 +26,9 @@ import java.util.stream.StreamSupport;
 @Service
 @SuppressWarnings("rawtypes")
 public abstract class GenericServiceImpl<T extends ModelBase> implements GenericService<T> {
+
+    @Autowired
+    protected ModelMapper modelMapper;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -49,16 +53,17 @@ public abstract class GenericServiceImpl<T extends ModelBase> implements Generic
     @Override
     public T save(T model) {
         validateSave(model);
-        try {
-            return getRepository().save(model);
-        } catch (EntityExistsException e) {
-            throw new ValidationException("Error saving entity. The entity already exists!", e);
+        T t = getRepository().save(model);
+        return findById(t.getId());
+    }
 
-        } catch (IllegalArgumentException e) {
-            throw new ValidationException("Error saving entity. You provided a ilegal argument.", e);
-        } catch (Exception e) {
-            throw new ValidationException("Error saving entity.", e);
-        }
+    @Override
+    public T patch(DtoBase dto, T model) {
+        processDtoToDomainPatch(dto, model);
+        return save(model);
+    }
+
+    protected void processDtoToDomainPatch(DtoBase dto, T updatedDomain) {
 
     }
 

@@ -4,6 +4,7 @@
 
 package edu.umss.dip.ssiservice.controller;
 
+import edu.umss.dip.ssiservice.dto.EmployeeDto;
 import edu.umss.dip.ssiservice.model.Employee;
 import edu.umss.dip.ssiservice.service.EmployeeService;
 import edu.umss.dip.ssiservice.service.GenericService;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
-public class EmployeeController extends GenericController<Employee> {
+public class EmployeeController extends GenericController<Employee, EmployeeDto> {
     private EmployeeService service;
 
     public EmployeeController(EmployeeService service) {
@@ -24,7 +25,7 @@ public class EmployeeController extends GenericController<Employee> {
 
     @Override
     @GetMapping
-    public List<Employee> getAll() {
+    public List<EmployeeDto> getAll() {
         return super.getAll();
     }
 
