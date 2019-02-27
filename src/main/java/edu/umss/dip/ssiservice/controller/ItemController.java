@@ -11,9 +11,8 @@ import edu.umss.dip.ssiservice.service.ItemService;
 import edu.umss.dip.ssiservice.service.SubCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/items")
@@ -48,6 +47,18 @@ public class ItemController extends GenericController<Item> {
         return super.getAll(model);
     }
 
+    @RequestMapping(value = "/{id}/image")
+    public String showUploadItemImageForm(Model model, @PathVariable String id) {
+        Item itemPersisted = service.findById(Long.valueOf(id));
+        model.addAttribute("item", itemPersisted);
+        return "uploadItemImageForm";
+    }
+
+    @PostMapping("/{id}/image")
+    public String postImage(Model model, @PathVariable Long id, @RequestParam("imagefile") MultipartFile file) {
+        service.saveImage(id, file);
+        return "redirect:/items/update/{id}";
+    }
     @Override
     protected GenericService getService() {
         return service;
