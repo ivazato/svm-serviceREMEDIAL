@@ -1,11 +1,21 @@
-<form th:object="${item}" th:action="@{/item}" METHOD="post">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Crear Item</title>
+</head>
+<body>
+<h1>Item List</h1>
+<form th:object="${item}" th:action="@{/items}" METHOD="post">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{version}"/>
     <div>
         <label>Name</label>
-        <input type="text" th:field="*{name}"></input>
+        <input type="text" th:field="*{name}"/>
     </div>
     <div>
         <label>Code</label>
-        <input type="text" th:field="*{code}"></input>
+        <input type="text" th:field="*{code}"/>
     </div>
     <div>
         <label>SubCategory</label>
@@ -19,3 +29,6 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
+</body>
+</html>

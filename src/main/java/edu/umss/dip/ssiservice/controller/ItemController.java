@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/items")
 public class ItemController extends GenericController<Item> {
     private ItemService service;
     private SubCategoryService subCategoryService;

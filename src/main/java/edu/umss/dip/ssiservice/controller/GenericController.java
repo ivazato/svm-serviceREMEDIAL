@@ -51,7 +51,7 @@ public abstract class GenericController<E extends ModelBase> {
         E elementPersisted = (E) getService().save(element);
         model.addAttribute(getSingular(), elementPersisted);
         RedirectView redirectView =
-                new RedirectView(PATH_SEPARATOR + getSingular() + PATH_SEPARATOR + elementPersisted.getId());
+                new RedirectView(PATH_SEPARATOR + getPlural());
         redirectView.setHttp10Compatible(false);
         return redirectView;
     }
@@ -65,7 +65,7 @@ public abstract class GenericController<E extends ModelBase> {
     @RequestMapping(value = "/delete/{id}")
     public RedirectView deleteRequest(Model model, @PathVariable String id) {
         getService().deleteById(Long.valueOf(id));
-        RedirectView redirectView = new RedirectView(PATH_SEPARATOR + getSingular());
+        RedirectView redirectView = new RedirectView(PATH_SEPARATOR + getPlural());
         redirectView.setHttp10Compatible(false);
         return redirectView;
     }
