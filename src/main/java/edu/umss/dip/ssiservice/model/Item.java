@@ -4,7 +4,7 @@
 
 package edu.umss.dip.ssiservice.model;
 
-import edu.umss.dip.ssiservice.dto.DtoBase;
+import edu.umss.dip.ssiservice.dto.ItemDto;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Item extends ModelBase {
+public class Item extends ModelBase<ItemDto> {
     private String name;
     private String code;
 
@@ -55,7 +55,7 @@ public class Item extends ModelBase {
     }
 
     @Override
-    public ModelBase toDomain(DtoBase element, ModelMapper mapper) {
+    public ModelBase toDomain(ItemDto element, ModelMapper mapper) {
         return super.toDomain(element, mapper);
     }
 }
