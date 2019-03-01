@@ -9,14 +9,19 @@ import edu.umss.dip.ssiservice.model.Item;
 import edu.umss.dip.ssiservice.service.GenericService;
 import edu.umss.dip.ssiservice.service.ItemService;
 import edu.umss.dip.ssiservice.service.SubCategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.springframework.stereotype.Controller;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.List;
 
-@RestController
-@RequestMapping("/items")
+@Controller
+@Path("/items")
+@Produces(MediaType.APPLICATION_JSON)
 public class ItemController extends GenericController<Item, ItemDto> {
     private ItemService service;
     private SubCategoryService subCategoryService;
@@ -27,30 +32,22 @@ public class ItemController extends GenericController<Item, ItemDto> {
     }
 
     @Override
-    @GetMapping
+    @GET
     public List<ItemDto> getAll() {
         return super.getAll();
     }
 
 
-/*
-    @GetMapping("/{id}/readimage")
-    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        Item itemPersisted = service.findById(Long.valueOf(id));
-
-        if (itemPersisted.getImage() != null) {
-            byte[] byteArray = new byte[itemPersisted.getImage().length];
-            int i = 0;
-
-            for (Byte wrappedByte : itemPersisted.getImage()) {
-                byteArray[i++] = wrappedByte;
-            }
-            response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(byteArray);
-            IOUtils.copy(is, response.getOutputStream());
-        }
+    @Path("/{id}/image")
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response uploadFile(@PathParam("id") String id,
+            @FormDataParam("file") InputStream file,
+            @FormDataParam("file") FormDataContentDisposition fileDisposition) {
+        service.saveImage(Long.valueOf(id), file);
+        return Response.ok("Data uploaded successfully !!").build();
     }
-*/
 
     @Override
     protected GenericService getService() {

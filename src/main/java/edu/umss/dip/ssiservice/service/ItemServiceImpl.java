@@ -8,7 +8,9 @@ import edu.umss.dip.ssiservice.model.Item;
 import edu.umss.dip.ssiservice.repositories.GenericRepository;
 import edu.umss.dip.ssiservice.repositories.ItemRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class ItemServiceImpl extends GenericServiceImpl<Item> implements ItemService {
@@ -24,9 +26,15 @@ public class ItemServiceImpl extends GenericServiceImpl<Item> implements ItemSer
     }
 
     @Override
-    public void saveImage(Long id, MultipartFile file) {
-        Item item = findById(id);
-        item.setImage(getBytes(file));
-        save(item);
+    public void saveImage(Long id, InputStream file) {
+        Item itemPersisted = findById(id);
+        try {
+            Byte[] bytes = ImageUtils.inputStreamToByteArray(file);
+            itemPersisted.setImage(bytes);
+            getRepository().save(itemPersisted);
+        } catch (IOException e) {
+            logger.error("Error reading file", e);
+            e.printStackTrace();
+        }
     }
 }

@@ -8,16 +8,19 @@ import edu.umss.dip.ssiservice.dto.CategoryDto;
 import edu.umss.dip.ssiservice.model.Category;
 import edu.umss.dip.ssiservice.service.CategoryService;
 import edu.umss.dip.ssiservice.service.GenericService;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@RestController
-@RequestMapping("/categories")
+@Controller
+@Path("/categories")
+@Produces(MediaType.APPLICATION_JSON)
 public class CategoryController extends GenericController<Category, CategoryDto> {
     private CategoryService service;
 
@@ -30,8 +33,8 @@ public class CategoryController extends GenericController<Category, CategoryDto>
         return service;
     }
 
-    @GetMapping
-    public List<Category> getCategories(@RequestParam(value = "code", required = false) String code) {
+    @GET
+    public List<Category> getCategories(@QueryParam(value = "code") String code) {
         return StringUtils.isEmpty(code) ? service.findAll() : service.findByCode(code);
     }
 }

@@ -10,10 +10,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -30,13 +32,22 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteElement(@PathVariable("id") @NotNull Long id) {
+    @OPTIONS
+    public Response preflight() {
+        Response.ResponseBuilder responseBuilder = Response.ok();
+        responseBuilder.allow("OPTIONS").build();
+        return responseBuilder.build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public void deleteElement(@PathParam("id") @NotNull Long id) {
         getService().deleteById(id);
     }
 
-    @GetMapping("/{id}")
-    public D getById(@PathVariable("id") @NotNull Long id) {
+    @GET
+    @Path("/{id}")
+    public D getById(@PathParam("id") @NotNull Long id) {
         return toDto((E) (getService().findById(id)));
     }
 
@@ -44,12 +55,12 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
         return toDto(getService().findAll());
     }
 
-    @PostMapping
+    @POST
     public D save(@RequestBody D element) {
         return toDto((E) getService().save(toModel(element)));
     }
 
-    @PutMapping
+    @PUT
     public D update(@RequestBody D element) {
         return toDto((E) getService().save(toModel(element)));
     }
@@ -63,7 +74,9 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
      * @param request
      * @return patched domain model
      */
-    public D patch(Long id, HttpServletRequest request) {
+    @PATCH
+    @Path("/{id}")
+    public D patch(@PathParam("id") Long id, HttpServletRequest request) {
         E domain = (E) (getService().findById(id));
         E updatedDomain;
         D dto;

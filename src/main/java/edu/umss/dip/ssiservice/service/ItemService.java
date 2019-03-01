@@ -5,10 +5,11 @@
 package edu.umss.dip.ssiservice.service;
 
 import edu.umss.dip.ssiservice.model.Item;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
 
 public interface ItemService extends GenericService<Item> {
-    void saveImage(Long id, MultipartFile file);
+    void saveImage(Long id, InputStream file);
 }
 
     
