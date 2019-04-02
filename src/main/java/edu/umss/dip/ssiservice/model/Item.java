@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 public class Item extends ModelBase<ItemDto> {
     private String name;
     private String code;
+    private String price;
 
     @Lob
     private Byte[] image;
@@ -36,6 +37,14 @@ public class Item extends ModelBase<ItemDto> {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public Byte[] getImage() {

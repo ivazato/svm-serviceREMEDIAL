@@ -125,7 +125,7 @@ public class ItemDto extends DtoBase<Item> {
             String imageStr = Base64.encodeBase64String(bytes);
             setImage(imageStr);
         }
-        setPrice("5");
+        //setPrice("6");
         return this;
     }
 

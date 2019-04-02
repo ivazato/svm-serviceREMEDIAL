@@ -17,19 +17,19 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private CategoryRepository categoryRepository;
     private SubCategoryRepository subCategoryRepository;
     private ItemRepository itemRepository;
-    private EmployeeRepository employeeRepository;
-    private PositionRepository positionRepository;
-    private ContractRepository contractRepository;
+    //private EmployeeRepository employeeRepository;
+    //private PositionRepository positionRepository;
+    //private ContractRepository contractRepository;
 
     public DevBootstrap(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository,
-            ItemRepository itemRepository, EmployeeRepository employeeRepository,
-            PositionRepository positionRepository, ContractRepository contractRepository) {
+            ItemRepository itemRepository /*, EmployeeRepository employeeRepository,*/
+            /*PositionRepository positionRepository,*/ /*ContractRepository contractRepository*/) {
         this.categoryRepository = categoryRepository;
         this.subCategoryRepository = subCategoryRepository;
         this.itemRepository = itemRepository;
-        this.employeeRepository = employeeRepository;
-        this.positionRepository = positionRepository;
-        this.contractRepository = contractRepository;
+//        this.employeeRepository = employeeRepository;
+        //this.positionRepository = positionRepository;
+        //this.contractRepository = contractRepository;
     }
 
     @Override
@@ -38,64 +38,70 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void initData() {
-        // EPP category
-        Category eppCategory = new Category();
-        eppCategory.setCode("EPP");
-        eppCategory.setName("EPP");
-        categoryRepository.save(eppCategory);
 
-        // RES category
-        Category resourceCategory = new Category();
-        resourceCategory.setCode("RES");
-        resourceCategory.setName("RESOURCE");
-        categoryRepository.save(resourceCategory);
+        // GRUHOR category
+        Category gruHorqCategory = new Category();
+        gruHorqCategory.setCode("GRUHOR");
+        gruHorqCategory.setName("GRUAS HORQUILLA");
+        categoryRepository.save(gruHorqCategory);
 
-        // safety subcategory
-        SubCategory safetySubCategory = new SubCategory();
-        safetySubCategory.setCategory(eppCategory);
-        safetySubCategory.setCode("SAF");
-        safetySubCategory.setName("SAFETY");
-        subCategoryRepository.save(safetySubCategory);
+        // BC category
+        Category bcCategory = new Category();
+        bcCategory.setCode("BC");
+        bcCategory.setName("BOBCATS");
+        categoryRepository.save(bcCategory);
 
-        // raw material subcategory
-        SubCategory rawMaterialSubCategory = new SubCategory();
-        rawMaterialSubCategory.setCategory(resourceCategory);
-        rawMaterialSubCategory.setCode("RM");
-        rawMaterialSubCategory.setName("RAW MATERIAL");
-        subCategoryRepository.save(rawMaterialSubCategory);
+        // bc1 subcategory
+        SubCategory bc1SubCategory = new SubCategory();
+        bc1SubCategory.setCategory(gruHorqCategory);
+        bc1SubCategory.setCode("BC1");
+        bc1SubCategory.setName("BobCats1");
+        subCategoryRepository.save(bc1SubCategory);
 
-        // Helmet Item
-        Item helmet = new Item();
-        helmet.setCode("HEL");
-        helmet.setName("HELMET");
-        helmet.setSubCategory(safetySubCategory);
-        itemRepository.save(helmet);
+        // bc2 material subcategory
+        SubCategory bc2SubCategory = new SubCategory();
+        bc2SubCategory.setCategory(bcCategory);
+        bc2SubCategory.setCode("BC2");
+        bc2SubCategory.setName("BobCats2");
+        subCategoryRepository.save(bc2SubCategory);
 
-        // ink Item
-        Item ink = new Item();
-        ink.setCode("INK");
-        ink.setName("INK");
-        ink.setSubCategory(rawMaterialSubCategory);
-        itemRepository.save(ink);
+        // MC510 Item
+        Item mc510 = new Item();
+        mc510.setCode("MC510");
+        mc510.setName("Mini Cargador N° 510 ");
+        mc510.setPrice("125000");
+        mc510.setSubCategory(bc1SubCategory);
+        itemRepository.save(mc510);
 
+        // GH168 Item
+        Item gh168 = new Item();
+        gh168.setCode("GH168");
+        gh168.setName("Grúa Horquilla N° 168");
+        gh168.setPrice("110000");
+        gh168.setSubCategory(bc2SubCategory);
+        itemRepository.save(gh168);
+/*
         // John Employee
         Employee john = new Employee();
         john.setFirstName("John");
         john.setLastName("Doe");
-
+*/
+/*
         // Position
         Position position = new Position();
         position.setName("OPERATIVE");
         positionRepository.save(position);
-
+*/
+/*
         // contract
         Contract contract = new Contract();
         contract.setEmployee(john);
         contract.setInitDate(new Date(2010, 1, 1));
-        contract.setPosition(position);
-
+        /*contract.setPosition(position);*/
+/*
         john.getContracts().add(contract);
         employeeRepository.save(john);
         //contractRepository.save(contract);
+*/
     }
 }
