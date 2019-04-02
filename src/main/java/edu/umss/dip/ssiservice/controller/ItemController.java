@@ -38,6 +38,10 @@ public class ItemController extends GenericController<Item, ItemDto> {
         return super.getAll();
     }
 
+    @POST
+    public ItemDto save(@RequestBody ItemDto item) {
+        return super.save(item);
+    }
 
     @Path("/{id}/image")
     @POST
