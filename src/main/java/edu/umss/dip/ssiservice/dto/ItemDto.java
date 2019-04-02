@@ -22,6 +22,11 @@ public class ItemDto extends DtoBase<Item> {
     private String description;
     private Boolean featured;
 
+    // NUEVAS VARIABLES
+    private String brand;
+    private String model;
+    private String capacity;
+
     public String getName() {
         return name;
     }
@@ -108,6 +113,31 @@ public class ItemDto extends DtoBase<Item> {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     @Override

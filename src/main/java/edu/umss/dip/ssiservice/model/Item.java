@@ -20,6 +20,11 @@ public class Item extends ModelBase<ItemDto> {
     @Lob
     private Byte[] image;
 
+    // NUEVAS VARIABLES
+    private String brand;
+    private String model;
+    private String capacity;
+
     @OneToOne(targetEntity = SubCategory.class)
     private SubCategory subCategory;
 
@@ -61,6 +66,30 @@ public class Item extends ModelBase<ItemDto> {
 
     public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     @Override
