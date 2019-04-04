@@ -16,7 +16,7 @@ public class ItemDto extends DtoBase<Item> {
     private String image;
     private String category;
     private Long subCategoryId;
-    private String price;
+    private int price;
     private Object[] comments = new Object[0];
     private Long id;
     private String description;
@@ -51,11 +51,11 @@ public class ItemDto extends DtoBase<Item> {
         this.category = category;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
